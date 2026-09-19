@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ContractGuard | Compliance Intelligence</title>
+<script>
+    if (sessionStorage.getItem("contractGuardLoggedIn") !== "true") {
+        window.location.replace("login.html");
+    }
+</script>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">✦ ContractGuard</div>
+
+    <nav>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#documents">Documents</a>
+        <a href="#analysis">Analysis</a>
+        <a href="#audit">Audit Trail</a>
+    </nav>
+
+    <div class="engine-status">
+        <span class="status-dot"></span>
+        Compliance Engine Online
+    </div>
+</header>
+
+
+<main>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-badge">AI CONTRACT & COMPLIANCE INTELLIGENCE</div>
+
+        <h1>
+            Turn complex documents<br>
+            into <span>compliance clarity.</span>
+        </h1>
+
+        <p>
+            Analyze contracts, company policies and regulations to identify
+            compliance conflicts, verify regulatory sources and generate
+            actionable risk insights.
+        </p>
+    </section>
+
+
+    <!-- DOCUMENT UPLOAD -->
+    <section class="upload-section" id="documents">
+
+        <div class="section-heading">
+            <span>01</span>
+            <div>
+                <h2>Upload Documents</h2>
+                <p>Provide the documents required for compliance analysis.</p>
+            </div>
+        </div>
+
+        <div class="upload-grid">
+
+            <div class="upload-card">
+                <div class="upload-icon">📄</div>
+
+                <h3>Contract</h3>
+                <p>Upload the vendor/customer contract.</p>
+
+                <input
+                    type="file"
+                    id="contractFile"
+                    accept=".pdf"
+                >
+
+                <label for="contractFile" class="upload-btn">
+                    Choose PDF
+                </label>
+
+                <div class="file-name" id="contractName">
+                    No file selected
+                </div>
+            </div>
+
+
+            <div class="upload-card">
+                <div class="upload-icon">📋</div>
+
+                <h3>Company Policy</h3>
+                <p>Upload the relevant internal policy.</p>
+
+                <input
+                    type="file"
+                    id="policyFile"
+                    accept=".pdf"
+                >
+
+                <label for="policyFile" class="upload-btn">
+                    Choose PDF
+                </label>
+
+                <div class="file-name" id="policyName">
+                    No file selected
+                </div>
+            </div>
+
+
+            <div class="upload-card">
+                <div class="upload-icon">⚖</div>
+
+                <h3>Regulation</h3>
+                <p>Upload the applicable regulation.</p>
+
+                <input
+                    type="file"
+                    id="regulationFile"
+                    accept=".pdf"
+                >
+
+                <label for="regulationFile" class="upload-btn">
+                    Choose PDF
+                </label>
+
+                <div class="file-name" id="regulationName">
+                    No file selected
+                </div>
+            </div>
+
+        </div>
+
+
+        <button id="analyzeBtn" class="analyze-btn">
+            Analyze Documents →
+        </button>
+
+        <div id="loading" class="loading hidden">
+            Analyzing documents...
+        </div>
+
+        <div id="errorMessage" class="error-message hidden"></div>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+    <section class="dashboard" id="dashboard">
+
+        <div class="section-heading">
+            <span>02</span>
+            <div>
+                <h2>Compliance Command Center</h2>
+                <p>Real-time overview of the current compliance analysis.</p>
+            </div>
+        </div>
+
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <span>DOCUMENTS</span>
+                <strong id="documentCount">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>CONFLICTS</span>
+                <strong id="conflictCount">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>RISK SCORE</span>
+                <strong id="riskScore">--</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>STATUS</span>
+                <strong id="riskStatus">PENDING</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ANALYSIS -->
+    <section class="analysis-section" id="analysis">
+
+        <div class="section-heading">
+            <span>03</span>
+            <div>
+                <h2>Compliance Analysis</h2>
+                <p>Detected requirements, risks and supporting evidence.</p>
+            </div>
+        </div>
+
+
+        <div class="results-grid">
+
+            <!-- RISK -->
+            <div class="result-card">
+
+                <div class="result-icon">⚠</div>
+
+                <div>
+                    <span class="card-label">RISK DETECTION</span>
+
+                    <h3 id="riskTitle">
+                        Analysis Pending
+                    </h3>
+
+                    <div class="risk-number">
+                        <span id="riskNumber">--</span>
+                        <small>/100</small>
+                    </div>
+
+                    <p id="riskDescription">
+                        Upload all three documents and start the analysis.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- CONFLICT -->
+            <div class="result-card">
+
+                <div class="result-icon">↔</div>
+
+                <div>
+                    <span class="card-label">
+                        CROSS-DOCUMENT CONFLICT
+                    </span>
+
+                    <h3 id="conflictTitle">
+                        No analysis yet
+                    </h3>
+
+                    <p id="conflictDescription">
+                        Conflicts will appear after document analysis.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- ACTION -->
+            <div class="result-card">
+
+                <div class="result-icon">✓</div>
+
+                <div>
+                    <span class="card-label">
+                        RECOMMENDED ACTION
+                    </span>
+
+                    <ul id="actionList">
+                        <li>Waiting for analysis.</li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <!-- EVIDENCE -->
+            <div class="result-card">
+
+                <div class="result-icon">🔎</div>
+
+                <div>
+                    <span class="card-label">
+                        EVIDENCE
+                    </span>
+
+                    <ul id="evidenceList">
+                        <li>Evidence will appear after analysis.</li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <!-- OFFICIAL SOURCE VERIFICATION -->
+            <div class="result-card verification-card">
+
+                <div class="result-icon verification-icon">
+                    ✓
+                </div>
+
+                <div class="verification-content">
+
+                    <span class="card-label">
+                        OFFICIAL SOURCE VERIFICATION
+                    </span>
+
+                    <h3 id="verificationStatus">
+                        VERIFICATION PENDING
+                    </h3>
+
+                    <p id="verificationMessage">
+                        Verification will be performed after document analysis.
+                    </p>
+
+                    <div class="verification-details">
+
+                        <div>
+                            <span>Source</span>
+                            <strong id="verificationSource">
+                                Not checked
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Document Status</span>
+                            <strong id="documentStatus">
+                                PENDING
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Last Checked</span>
+                            <strong id="lastChecked">
+                                --
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <div class="verification-note" id="verificationNote">
+                        Official-source verification has not been completed.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- AUDIT -->
+    <section class="audit-section" id="audit">
+
+        <div class="section-heading">
+            <span>04</span>
+            <div>
+                <h2>Audit Trail</h2>
+                <p>Record of compliance analysis activities.</p>
+            </div>
+        </div>
+
+
+        <div class="audit-card">
+
+            <div class="audit-item">
+                <span class="audit-dot"></span>
+
+                <div>
+                    <strong>System Ready</strong>
+                    <p>Compliance engine initialized.</p>
+                </div>
+
+                <time id="auditTime">--</time>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+    <p>✦ ContractGuard — Compliance Intelligence System</p>
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | ContractGuard</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-family: "Segoe UI", Arial, sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #172554,
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    #241044,
+                    transparent 35%
+                ),
+                #080b16;
+
+            color: #f5f7ff;
+        }
+
+
+        .login-container {
+            width: 420px;
+            max-width: 90%;
+
+            padding: 42px;
+
+            background: rgba(255,255,255,0.045);
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+            border-radius: 22px;
+
+            backdrop-filter: blur(20px);
+
+            box-shadow:
+                0 25px 80px rgba(0,0,0,0.4);
+        }
+
+
+        .logo {
+            text-align: center;
+
+            font-size: 25px;
+            font-weight: 700;
+
+            margin-bottom: 35px;
+        }
+
+
+        .logo span {
+            color: #00ffc8;
+        }
+
+
+        .badge {
+            display: block;
+
+            width: fit-content;
+
+            margin: 0 auto 18px;
+
+            padding: 7px 14px;
+
+            border-radius: 50px;
+
+            border: 1px solid rgba(0,255,200,0.25);
+
+            color: #00ffc8;
+
+            font-size: 10px;
+
+            letter-spacing: 1.5px;
+        }
+
+
+        h1 {
+            text-align: center;
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .subtitle {
+            text-align: center;
+
+            color: #858da5;
+
+            font-size: 13px;
+
+            margin-bottom: 30px;
+
+            line-height: 1.6;
+        }
+
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+
+        .input-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #aab1c4;
+
+            font-size: 12px;
+        }
+
+
+        .input-group input {
+            width: 100%;
+
+            padding: 14px 15px;
+
+            border-radius: 10px;
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+            background: rgba(0,0,0,0.2);
+
+            color: white;
+
+            outline: none;
+
+            font-size: 13px;
+        }
+
+
+        .input-group input:focus {
+            border-color: #00ffc8;
+
+            box-shadow:
+                0 0 0 3px rgba(0,255,200,0.06);
+        }
+
+
+        .login-btn {
+            width: 100%;
+
+            padding: 14px;
+
+            margin-top: 8px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #00ffc8,
+                    #8b5cf6
+                );
+
+            color: #071019;
+
+            font-weight: 700;
+
+            font-size: 14px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 30px rgba(0,255,200,0.15);
+        }
+
+
+        .error {
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 10px;
+
+            border-radius: 8px;
+
+            text-align: center;
+
+            background: rgba(255,70,100,0.1);
+
+            border: 1px solid rgba(255,70,100,0.25);
+
+            color: #ff8b9e;
+
+            font-size: 12px;
+        }
+
+
+        .demo-info {
+            margin-top: 25px;
+
+            padding: 13px;
+
+            border-radius: 10px;
+
+            background: rgba(255,255,255,0.03);
+
+            color: #747c94;
+
+            font-size: 11px;
+
+            text-align: center;
+
+            line-height: 1.6;
+        }
+
+
+        .footer {
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #555e76;
+
+            font-size: 10px;
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <div class="login-container">
+
+        <div class="logo">
+            ✦ Contract<span>Guard</span>
+        </div>
+
+
+        <div class="badge">
+            SECURE COMPLIANCE ACCESS
+        </div>
+
+
+        <h1>Welcome Back</h1>
+
+        <p class="subtitle">
+            Sign in to access your compliance command center.
+        </p>
+
+
+        <form id="loginForm">
+
+            <div class="input-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-btn"
+            >
+                Login →
+            </button>
+
+        </form>
+
+
+        <div
+            id="error"
+            class="error"
+        >
+            Invalid email or password.
+        </div>
+
+
+        <div class="demo-info">
+
+            Demo Login<br>
+
+            Email:
+            <strong>admin@contractguard.com</strong>
+            <br>
+
+            Password:
+            <strong>admin123</strong>
+
+        </div>
+
+
+        <div class="footer">
+            ContractGuard • Compliance Intelligence System
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const error =
+            document.getElementById("error");
+
+
+        loginForm.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                const email =
+                    document.getElementById("email").value.trim();
+
+                const password =
+                    document.getElementById("password").value;
+
+
+                /*
+                 * DEMO LOGIN
+                 * Backend authentication will be added next.
+                 */
+
+                if (
+                    email === "admin@contractguard.com"
+                    &&
+                    password === "admin123"
+                ) {
+
+                    sessionStorage.setItem(
+                        "contractGuardLoggedIn",
+                        "true"
+                    );
+
+                    window.location.href =
+                        "index.html";
+
+                } else {
+
+                    error.style.display =
+                        "block";
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
